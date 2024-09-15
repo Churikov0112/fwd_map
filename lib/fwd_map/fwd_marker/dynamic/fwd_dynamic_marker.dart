@@ -8,7 +8,7 @@ import '../../fwd_id/fwd_id.dart';
 class FwdDynamicMarker {
   const FwdDynamicMarker({
     required this.id,
-    required this.initialCoordinate,
+    required this.coordinate,
     this.onMarkerTap,
     this.rotate = true,
     this.bearing = 0.0,
@@ -16,7 +16,7 @@ class FwdDynamicMarker {
   });
 
   final FwdId id;
-  final LatLng initialCoordinate;
+  final LatLng coordinate;
   final Function(FwdId, LatLng, Point<num>?)? onMarkerTap;
   final Widget child;
   final bool rotate;

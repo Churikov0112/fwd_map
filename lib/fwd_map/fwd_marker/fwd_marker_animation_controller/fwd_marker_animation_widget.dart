@@ -106,7 +106,7 @@ class _FwdMarkerAnimationWidgetState extends State<FwdMarkerAnimationWidget> wit
     }
 
     if (widget.type == FwdMarkerAnimationWidgetType.dynamic) {
-      _currentCoordinate = widget.fwdDynamicMarker!.initialCoordinate;
+      _currentCoordinate = widget.fwdDynamicMarker!.coordinate;
       _dynamicMarkerCurrentPosition = widget.initialMarkerPosition!;
     }
 

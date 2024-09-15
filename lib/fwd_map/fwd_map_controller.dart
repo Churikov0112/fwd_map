@@ -280,7 +280,7 @@ class FwdMapController {
 
   Future<void> addDynamicMarker(FwdDynamicMarker fwdDynamicMarker) async {
     FwdMarkerAnimationController fwdMarkerAnimationController = FwdMarkerAnimationController();
-    Point initialPosistion = await _maplibreMapController.toScreenLocation(fwdDynamicMarker.initialCoordinate);
+    Point initialPosistion = await _maplibreMapController.toScreenLocation(fwdDynamicMarker.coordinate);
     final fwdMarkerAnimationWidget = FwdMarkerAnimationWidget.fromDynamicMarker(
       fwdDynamicMarker: fwdDynamicMarker,
       maplibreMapController: _maplibreMapController,
@@ -294,7 +294,7 @@ class FwdMapController {
       fwdDynamicMarker,
       fwdMarkerAnimationController,
       fwdMarkerAnimationWidget,
-      fwdDynamicMarker.initialCoordinate,
+      fwdDynamicMarker.coordinate,
     );
     final Map<FwdId, FwdMarkerAnimationWidget> dynamicMarkerAnimationWidgetsForCallback = {};
     _dynamicMarkers.forEach((fwdId, tuple4) {
@@ -331,7 +331,7 @@ class FwdMapController {
       if (newChild != null || newOnMarkerTap != null) {
         newFwdDynamicMarker = FwdDynamicMarker(
           id: markerId,
-          initialCoordinate: newCoordinate ?? oldDynamicMarker.item4,
+          coordinate: newCoordinate ?? oldDynamicMarker.item4,
           onMarkerTap: newOnMarkerTap ?? oldDynamicMarker.item1.onMarkerTap,
           child: newChild ?? oldDynamicMarker.item1.child,
         );
