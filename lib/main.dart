@@ -40,7 +40,7 @@ class _FwdMapExampleState extends State<FwdMapExample> {
         child: FwdMap(
           initialCameraPosition: const CameraPosition(
             target: LatLng(59, 30),
-            zoom: 12,
+            zoom: 3,
           ),
           trackCameraPosition: true,
           onFwdMapCreated: (controller) {
