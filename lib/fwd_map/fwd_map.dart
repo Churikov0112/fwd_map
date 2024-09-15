@@ -7,6 +7,10 @@ import 'fwd_id/fwd_id.dart';
 import 'fwd_map_controller.dart' show FwdMapController;
 import 'fwd_marker/fwd_marker_animation_controller/fwd_marker_animation_widget.dart' show FwdMarkerAnimationWidget;
 
+export 'dart:math' show Point;
+
+export 'package:maplibre_gl/maplibre_gl.dart' show CameraPosition, LatLng, MinMaxZoomPreference;
+
 export 'fwd_map_controller.dart' show FwdMapController;
 export 'fwd_marker/dynamic/fwd_dynamic_marker.dart' show FwdDynamicMarker;
 export 'fwd_marker/static/fwd_static_marker.dart' show FwdStaticMarker;
@@ -16,28 +20,25 @@ export 'fwd_polyline/fwd_polyline.dart' show FwdPolyline;
 class FwdMap extends StatefulWidget {
   const FwdMap({
     required this.initialCameraPosition,
-    required this.trackCameraPosition,
+    required this.zoomPreference,
     required this.onFwdMapCreated,
-    required this.onMapLongClick,
-    required this.onCameraIdle,
-    required this.onStyleLoadedCallback,
-    this.maxZoom,
-    this.minZoom,
+    this.trackCameraPosition = true,
+    this.onMapLongClick,
+    this.onCameraIdle,
+    this.onStyleLoadedCallback,
     this.styleString,
     Key? key,
   }) : super(key: key);
 
   final String? styleString;
   final CameraPosition initialCameraPosition;
+  final MinMaxZoomPreference zoomPreference;
   final bool trackCameraPosition;
 
   final Function(FwdMapController fwdMapController) onFwdMapCreated;
-  final Function(Point<double> point, LatLng coordinates) onMapLongClick;
-  final Function() onCameraIdle;
-  final Function() onStyleLoadedCallback;
-
-  final double? minZoom;
-  final double? maxZoom;
+  final Function(Point<double> point, LatLng coordinates)? onMapLongClick;
+  final Function()? onCameraIdle;
+  final Function()? onStyleLoadedCallback;
 
   @override
   State<FwdMap> createState() => _FwdMapState();
@@ -80,7 +81,7 @@ class _FwdMapState extends State<FwdMap> {
           onCameraIdle: widget.onCameraIdle,
           onStyleLoadedCallback: widget.onStyleLoadedCallback,
           initialCameraPosition: widget.initialCameraPosition,
-          minMaxZoomPreference: MinMaxZoomPreference(widget.minZoom, widget.maxZoom),
+          minMaxZoomPreference: widget.zoomPreference,
         ),
         if (_dynamicMarkerAnimationWidgets.isNotEmpty) ..._dynamicMarkerAnimationWidgets.values.toList(),
         if (_staticMarkerAnimationWidgets.isNotEmpty) ..._staticMarkerAnimationWidgets.values.toList(),
