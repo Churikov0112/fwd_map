@@ -2,9 +2,9 @@ import 'dart:math';
 import 'dart:typed_data' show Uint8List;
 
 import 'package:flutter/widgets.dart' show Widget;
-import 'package:fwd_minimal_sdk/fwd_minimal_sdk.dart';
-import 'package:maplibre_gl/mapbox_gl.dart';
+import 'package:maplibre_gl/maplibre_gl.dart';
 
+import '../../fwd_id/fwd_id.dart';
 import '../../fwd_map_helpers/fwd_map_marker_helper.dart';
 
 enum MarkerAnchor { bottom, center, top }

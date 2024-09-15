@@ -1,7 +1,9 @@
 import 'dart:math';
 import 'dart:ui';
-import 'package:fwd_minimal_sdk/fwd_minimal_sdk.dart';
-import 'package:maplibre_gl/mapbox_gl.dart';
+
+import 'package:maplibre_gl/maplibre_gl.dart';
+
+import '../fwd_id/fwd_id.dart';
 
 class FwdPolygon {
   final FwdId id;

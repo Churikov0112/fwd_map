@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:maplibre_gl/mapbox_gl.dart';
+import 'package:maplibre_gl/maplibre_gl.dart';
 
 import 'fwd_marker_animation_event.dart';
 import 'fwd_marker_animation_state.dart';
@@ -23,15 +23,4 @@ class FwdMarkerAnimationController {
   }) {
     _addEvent(FwdMarkerAnimationEvent.animate(point: point, duration: duration));
   }
-
-  // void remove() {
-  //   _addEvent(FwdMarkerAnimationEvent.remove());
-  // }
-
-  // void teleport({
-  //   required Coordinate point,
-  //   required VehicleMovement vehicle,
-  // }) {
-  //   _addEvent(FwdMarkerAnimationEvent.teleport(point: point, vehicle: vehicle));
-  // }
 }

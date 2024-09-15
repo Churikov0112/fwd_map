@@ -1,10 +1,12 @@
+// ignore_for_file: prefer_final_fields
+
 import 'dart:math';
 
 import 'package:flutter/widgets.dart';
-import 'package:fwd_minimal_sdk/fwd_minimal_sdk.dart';
-import 'package:location/location.dart';
-import 'package:maplibre_gl/mapbox_gl.dart';
+import 'package:maplibre_gl/maplibre_gl.dart';
+import 'package:tuple/tuple.dart';
 
+import 'fwd_id/fwd_id.dart';
 import 'fwd_map_helpers/fwd_geo_json_helper.dart';
 import 'fwd_marker/dynamic/fwd_dynamic_marker.dart';
 import 'fwd_marker/fwd_marker_animation_controller/fwd_marker_animation_controller.dart';
@@ -14,24 +16,20 @@ import 'fwd_polygon/fwd_polygon.dart';
 import 'fwd_polyline/fwd_polyline.dart';
 
 class FwdMapController {
-  final MaplibreMapController _maplibreMapController;
+  final MapLibreMapController _maplibreMapController;
 
   Map<FwdId,
           Tuple5<FwdStaticMarker, FwdMarkerAnimationController, FwdMarkerAnimationWidget, Map<String, dynamic>, LatLng>>
-      // ignore: prefer_final_fields
       _staticMarkers = {};
   final Function(Map<FwdId, FwdMarkerAnimationWidget>) _updateStaticMarkerAnimationWidgetsCallback;
 
-  // ignore: prefer_final_fields
   Map<FwdId, Tuple4<FwdDynamicMarker, FwdMarkerAnimationController, FwdMarkerAnimationWidget, LatLng>> _dynamicMarkers =
       {};
   final Function(Map<FwdId, FwdMarkerAnimationWidget>) _updateDynamicMarkerWidgetsCallback;
 
-  // ignore: prefer_final_fields
   Map<FwdId, Tuple2<FwdPolyline, Line>> _polylines = {};
 
   // polygon, line, fill
-  // ignore: prefer_final_fields
   Map<FwdId, Tuple3<FwdPolygon, Fill, Line>> _polygons = {};
 
   CameraPosition? get cameraPosition => _maplibreMapController.cameraPosition;
@@ -464,7 +462,6 @@ class FwdMapController {
     //
 
     // clear all polygons (polygon is a fruit of love of fill and line)
-
     _polygons.forEach((fwdId, tuple) async {
       await _maplibreMapController.removeFill(tuple.item2);
       await _maplibreMapController.removeLine(tuple.item3);
@@ -555,40 +552,6 @@ class FwdMapController {
 
   Future<Point<num>> toScreenLocation(LatLng latLng) async {
     return await _maplibreMapController.toScreenLocation(latLng);
-  }
-
-  Future<LatLng?> getUserLocation() async {
-    Location location = Location();
-
-    bool serviceEnabled;
-    PermissionStatus permissionGranted;
-    LocationData locationData;
-
-    serviceEnabled = await location.serviceEnabled();
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
-      if (!serviceEnabled) {
-        return null;
-      }
-    }
-
-    permissionGranted = await location.hasPermission();
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        return null;
-      }
-    }
-
-    LatLng? latLng;
-
-    try {
-      locationData = await location.getLocation();
-      latLng = LatLng(locationData.latitude!, locationData.longitude!);
-    } catch (e) {
-      return null;
-    }
-    return latLng;
   }
 
   Future<void> moveCamera(CameraUpdate cameraUpdate) async {

@@ -3,8 +3,8 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fwd_minimal_sdk/fwd_minimal_sdk.dart';
-import 'package:maplibre_gl/mapbox_gl.dart';
+import 'package:fwd_map/fwd_map/fwd_id/fwd_id.dart';
+import 'package:maplibre_gl/maplibre_gl.dart';
 
 class FwdDynamicMarkerWidget extends StatefulWidget {
   const FwdDynamicMarkerWidget({
@@ -19,7 +19,7 @@ class FwdDynamicMarkerWidget extends StatefulWidget {
   }) : super(key: key);
 
   final FwdId id;
-  final MaplibreMapController maplibreMapController;
+  final MapLibreMapController maplibreMapController;
   final Function(FwdId, LatLng, Point<num>?)? onMarkerTap;
   final LatLng coordinate;
   final Point initialPosition;
